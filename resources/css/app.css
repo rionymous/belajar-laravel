@@ -1,0 +1,29 @@
+/* resources/css/app.css */
+
+/* Styling untuk tombol */
+button {
+    padding: 10px 20px;
+    margin: 5px;
+}
+
+/* Tampilan konten */
+#app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+/* Navigasi antar halaman */
+#app button {
+    margin-right: 10px;
+}
+
+/* Hiding konten yang tidak aktif */
+#app div {
+    display: none;
+}
+
+#app div[style*="display: block"] {
+    display: block;
+}
