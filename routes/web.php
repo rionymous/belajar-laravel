@@ -42,8 +42,8 @@ Route::get('/settings', function () {
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/users', [UserController::class, 'index'])->name('user.index');
-    Route::get('/users/create', [UserController::class, 'create'])->name('user.create');
-    Route::post('/users/store', [UserController::class, 'store'])->name('user.store');
+    Route::get('/users/add', [UserController::class, 'add'])->name('user.add');
+    Route::post('/users/create', [UserController::class, 'create'])->name('user.create');
     Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
     Route::post('/users/update/{id}', [UserController::class, 'update'])->name('user.update');
     Route::get('/users/delete/{id}', [UserController::class, 'destroy'])->name('user.delete');
@@ -51,9 +51,9 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/roles', [RoleController::class, 'index'])->name('role.index');
-    Route::get('/roles/create', [RoleController::class, 'create'])->name('role.create');
-    Route::post('/roles/store', [RoleController::class, 'store'])->name('role.store');
+    Route::get('/roles/add', [RoleController::class, 'add'])->name('role.add');
+    Route::post('/roles/create', [RoleController::class, 'create'])->name('role.create');
     Route::get('/roles/edit/{id}', [RoleController::class, 'edit'])->name('role.edit');
     Route::post('/roles/update/{id}', [RoleController::class, 'update'])->name('role.update');
-    Route::get('/roles/delete/{id}', [RoleController::class, 'destroy'])->name('role.delete');
+    Route::get('/roles/delete/{id}', [RoleController::class, 'delete'])->name('role.delete');
 });

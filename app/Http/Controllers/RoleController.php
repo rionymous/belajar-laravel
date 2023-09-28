@@ -21,11 +21,11 @@ class RoleController extends Controller
         return view('role.index', $data);
     }
 
-    public function create()
+    public function add()
     {
         $breadcrumbs = [
             ['url' => route('role.index'), 'label' => 'Role'],
-            ['url' => route('role.create'), 'label' => 'Add Role'],
+            ['url' => route('role.add'), 'label' => 'Add Role'],
         ];
 
         $data = [
@@ -33,14 +33,14 @@ class RoleController extends Controller
             'breadcrumbs' => $breadcrumbs,
         ];
 
-        return view('role.create', $data);
+        return view('role.add', $data);
     }
 
-    public function store(Request $request)
+    public function create(Request $request)
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'enabled' => 'required|boolean',
+            'enabled' => 'required|string',
         ]);
 
         Role::create([
@@ -90,9 +90,8 @@ class RoleController extends Controller
         return redirect()->route('role.index')->with('success', 'Role updated successfully.');
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
-        // Hapus data pengguna
         Role::findOrFail($id)->delete();
 
         return redirect()->route('role.index')->with('success', 'Role deleted successfully.');

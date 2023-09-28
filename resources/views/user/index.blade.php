@@ -10,7 +10,7 @@
             <div class="section-header">
               <h1>User List</h1>
               <div class="section-header-button">
-                <a href="/users/create" class="btn btn-primary">Add New</a>
+                <a href="/users/add" class="btn btn-primary">Add New</a>
               </div>
               <div class="section-header-breadcrumb"> @foreach($breadcrumbs as $breadcrumb) <div class="breadcrumb-item">
                   <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['label'] }}</a>
@@ -63,7 +63,7 @@
                         </div>
                         <h2>We couldn't find any data</h2>
                         <p class="lead"> Sorry we can't find any data, to get rid of this message, make at least 1 entry. </p>
-                        <a href="/users/create" class="btn btn-primary mt-4">Create new One</a>
+                        <a href="/users/add" class="btn btn-primary mt-4">Create new One</a>
                       </div>
                       @endif
                     </div>

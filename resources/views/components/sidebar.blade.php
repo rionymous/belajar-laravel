@@ -16,7 +16,7 @@
       </a>
     </li>
     <li class="menu-header">User Management</li>
-    <li class="dropdown {{ request()->is('users') || request()->is('users/create') ? 'active' : '' }}">
+    <li class="dropdown {{ request()->is('users') || request()->is('users/add') ? 'active' : '' }}">
       <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
         <i class="fas fa-columns"></i>
         <span>User</span>
@@ -25,12 +25,12 @@
         <li class="{{ request()->is('users') ? 'active' : '' }}">
           <a class="nav-link" href="/users">Overview</a>
         </li>
-        <li class="{{ request()->is('users/create') ? 'active' : '' }}">
-          <a class="nav-link" href="/users/create">Add New User</a>
+        <li class="{{ request()->is('users/add') ? 'active' : '' }}">
+          <a class="nav-link" href="/users/add">Add New User</a>
         </li>
       </ul>
     </li>
-    <li class="dropdown {{ request()->is('roles') || request()->is('roles/create') ? 'active' : '' }}">
+    <li class="dropdown {{ request()->is('roles') || request()->is('roles/add') ? 'active' : '' }}">
       <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
         <i class="fas fa-ellipsis-h"></i>
         <span>Role</span>
@@ -39,8 +39,8 @@
         <li class="{{ request()->is('roles') ? 'active' : '' }}">
           <a class="nav-link" href="/roles">Overview</a>
         </li>
-        <li class="{{ request()->is('roles/create') ? 'active' : '' }}">
-          <a class="nav-link" href="/roles/create">Add New Role</a>
+        <li class="{{ request()->is('roles/add') ? 'active' : '' }}">
+          <a class="nav-link" href="/roles/add">Add New Role</a>
         </li>
       </ul>
     </li>

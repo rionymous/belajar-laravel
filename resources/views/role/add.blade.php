@@ -24,7 +24,7 @@
 											<h4>Create New Role</h4> 
 										</div>
 										<div class="card-body">
-											<form action="{{ route('role.store') }}" method="POST"> 
+											<form action="{{ route('role.create') }}" method="post"> 
 												@csrf 
 												<div class="form-group row mb-4">
 													<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="name">Name</label>
@@ -36,11 +36,11 @@
 													<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Enabled</label>
 													<div class="selectgroup w-100 col-sm-12 col-md-7">
 														<label class="selectgroup-item">
-															<input type="radio" name="enabled" value="true" class="selectgroup-input">
+															<input type="radio" name="enabled" value="1" class="selectgroup-input">
 															<span class="selectgroup-button">Enable</span>
 														</label>
 														<label class="selectgroup-item">
-															<input type="radio" name="enabled" value="false" class="selectgroup-input">
+															<input type="radio" name="enabled" value="0" class="selectgroup-input">
 															<span class="selectgroup-button">Disable</span>
 														</label>
 													</div>

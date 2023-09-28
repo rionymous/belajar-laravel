@@ -21,7 +21,7 @@ class UserController extends Controller
         return view('user.index', $data);
     }
 
-    public function create()
+    public function add()
     {
         $breadcrumbs = [
             ['url' => route('user.index'), 'label' => 'Users'],
@@ -33,10 +33,10 @@ class UserController extends Controller
             'breadcrumbs' => $breadcrumbs,
         ];
 
-        return view('user.create', $data);
+        return view('user.add', $data);
     }
 
-    public function store(Request $request)
+    public function create(Request $request)
     {
         // Validasi data
         $validatedData = $request->validate([
