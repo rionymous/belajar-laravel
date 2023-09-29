@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-@include('components.header')
-
-<body>
-  <div id="app">
-    <div class="main-wrapper main-wrapper-1">
-      @include('components.navbar')
-      @include('components.sidebar')
+@extends('layouts.app') @section('content')
 
       <!-- Main Content -->
       <div class="main-content">
@@ -29,8 +21,9 @@
                                     <h4>Edit Role</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form action="{{ route('role.update', ['id' => $role->id]) }}" method="post">
+                                    <form action="{{ route('roles.update', $role->id) }}" method="post">
                                         @csrf
+                                        @method('PUT')
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="name">Name</label>
                                             <div class="col-sm-12 col-md-7">
@@ -59,10 +52,4 @@
                 </div>
             </section>
         </div>
-      @include('components.footer')
-    </div>
-  </div>
-
-  @include('components.script')
-</body>
-</html>
+        @endsection

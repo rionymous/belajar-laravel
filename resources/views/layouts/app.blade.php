@@ -79,40 +79,25 @@
                   <span>Dashboard</span>
                 </a>
               </li>
-              <li class="menu-header">User Management</li>
-              <li class="dropdown {{ request()->is('users') || request()->is('users/add') ? 'active' : '' }}">
+              <li class="menu-header">Management</li>
+              <li class="dropdown {{ request()->is('users') || request()->is('users/create') || request()->is('users/show/*') || request()->is('users/edit/*') || 
+                request()->is('roles') || request()->is('roles/create') || request()->is('roles/show/*') || request()->is('roles/edit/*') || 
+                request()->is('permissions') || request()->is('permissions/create') || request()->is('permissions/show/*') || request()->is('permissions/edit/*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                   <i class="fas fa-columns"></i>
-                  <span>User</span>
+                  <span>User Management</span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li class="{{ request()->is('users') ? 'active' : '' }}">
-                    <a class="nav-link" href="/users">Overview</a>
+                  <li class="{{ request()->is('users') || request()->is('users/create') || request()->is('users/show/*') || request()->is('users/edit/*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('users.index') }}">User</a>
                   </li>
-                  <li class="{{ request()->is('users/add') ? 'active' : '' }}">
-                    <a class="nav-link" href="/users/add">Add New User</a>
+                  <li class="{{ request()->is('roles') || request()->is('roles/create') || request()->is('roles/show/*') || request()->is('roles/edit/*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('roles.index') }}">Role</a>
                   </li>
-                </ul>
-              </li>
-              <li class="dropdown {{ request()->is('roles') || request()->is('roles/add') ? 'active' : '' }}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
-                  <i class="fas fa-ellipsis-h"></i>
-                  <span>Role</span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li class="{{ request()->is('roles') ? 'active' : '' }}">
-                    <a class="nav-link" href="/roles">Overview</a>
-                  </li>
-                  <li class="{{ request()->is('roles/add') ? 'active' : '' }}">
-                    <a class="nav-link" href="/roles/add">Add New Role</a>
+                  <li class="{{ request()->is('permissions') || request()->is('permissions/create') || request()->is('permissions/show/*') || request()->is('permissions/edit/*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('permissions.index') }}">Permission</a>
                   </li>
                 </ul>
-              </li>
-              <li class="{{ request()->is('permissions') || request()->is('permissions/create') || request()->is('permissions/show/*') || request()->is('permissions/edit/*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('permissions.index') }}">
-                  <i class="fas fa-square"></i>
-                  <span>Permissions</span>
-                </a>
               </li>
               <li class="menu-header">Pages</li>
               <li class="{{ request()->is('blank') ? 'active' : '' }}">

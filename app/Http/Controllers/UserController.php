@@ -11,21 +11,21 @@ class UserController extends Controller
     {
         $users = User::all();
         $breadcrumbs = [
-            ['url' => route('user.index'), 'label' => 'Users'],
+            ['url' => route('users.index'), 'label' => 'Users'],
         ];
         $data = [
             'title' => 'User List',
             'users' => $users,
             'breadcrumbs' => $breadcrumbs,
         ];
-        return view('user.index', $data);
+        return view('users.index', $data);
     }
 
-    public function add()
+    public function create()
     {
         $breadcrumbs = [
-            ['url' => route('user.index'), 'label' => 'Users'],
-            ['url' => route('user.create'), 'label' => 'Add User'],
+            ['url' => route('users.index'), 'label' => 'Users'],
+            ['url' => route('users.create'), 'label' => 'Add User'],
         ];
 
         $data = [
@@ -33,60 +33,73 @@ class UserController extends Controller
             'breadcrumbs' => $breadcrumbs,
         ];
 
-        return view('user.add', $data);
+        return view('users.create', $data);
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
-        // Validasi data
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|max:15',
         ]);
 
-        // Simpan data pengguna
         User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
         ]);
 
-        // Menampilkan notifikasi iziToast
         $notification = [
             'title' => 'Success',
             'message' => 'User created successfully.',
             'position' => 'bottomRight'
         ];
 
-        return redirect()->route('user.index')->with('notification', $notification);
+        return redirect()->route('users.index')->with('notification', $notification);
     }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+
+        $breadcrumbs = [
+            ['url' => route('users.index'), 'label' => 'Users'],
+            ['url' => route('users.show', $id), 'label' => 'View Users'],
+        ];
+        $data = [
+            'title' => 'View Permission',
+            'user' => $user,
+            'breadcrumbs' => $breadcrumbs,
+        ];
+
+        return view('users.show', $data);
+    }
+
 
     public function edit($id)
     {
         $user = User::findOrFail($id);
         $breadcrumbs = [
-            ['url' => route('user.index'), 'label' => 'Users'],
-            ['url' => route('user.edit', $id), 'label' => 'Edit User'],
+            ['url' => route('users.index'), 'label' => 'Users'],
+            ['url' => route('users.edit', $id), 'label' => 'Edit User'],
         ];
         $data = [
             'title' => 'Edit User',
             'user' => $user,
             'breadcrumbs' => $breadcrumbs,
         ];
-        return view('user.edit', $data);
+        return view('users.edit', $data);
     }
 
     public function update(Request $request, $id)
     {
-        // Validasi data
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'nullable|max:15',
         ]);
 
-        // Perbarui data pengguna
         $userData = [
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
@@ -105,7 +118,7 @@ class UserController extends Controller
             'position' => 'bottomRight'
         ];
 
-        return redirect()->route('user.index')->with('notification', $notification);
+        return redirect()->route('users.index')->with('notification', $notification);
     }
 
     public function destroy($id)
@@ -113,6 +126,6 @@ class UserController extends Controller
         // Hapus data pengguna
         User::findOrFail($id)->delete();
 
-        return redirect()->route('user.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
 }

@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-@include('components.header')
+@extends('layouts.app')
 
-<body>
-  <div id="app">
-    <div class="main-wrapper main-wrapper-1">
-      @include('components.navbar')
-      @include('components.sidebar')
+@section('content')
 
       <!-- Main Content -->
       <div class="main-content">
@@ -103,10 +97,6 @@
         </section>
       </div>
       
-      @include('components.footer')
-    </div>
-  </div>
 
-  @include('components.script')
-</body>
-</html>
+      
+      @endsection

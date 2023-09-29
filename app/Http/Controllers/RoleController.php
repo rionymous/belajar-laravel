@@ -11,21 +11,21 @@ class RoleController extends Controller
     {
         $roles = Role::all();
         $breadcrumbs = [
-            ['url' => route('role.index'), 'label' => 'Roles'],
+            ['url' => route('roles.index'), 'label' => 'Roles'],
         ];
         $data = [
             'title' => 'Role List',
             'roles' => $roles,
             'breadcrumbs' => $breadcrumbs,
         ];
-        return view('role.index', $data);
+        return view('roles.index', $data);
     }
 
-    public function add()
+    public function create()
     {
         $breadcrumbs = [
-            ['url' => route('role.index'), 'label' => 'Role'],
-            ['url' => route('role.add'), 'label' => 'Add Role'],
+            ['url' => route('roles.index'), 'label' => 'Role'],
+            ['url' => route('roles.create'), 'label' => 'Add Role'],
         ];
 
         $data = [
@@ -33,10 +33,10 @@ class RoleController extends Controller
             'breadcrumbs' => $breadcrumbs,
         ];
 
-        return view('role.add', $data);
+        return view('roles.create', $data);
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -54,24 +54,24 @@ class RoleController extends Controller
             'position' => 'bottomRight'
         ];
 
-        return redirect()->route('role.index')->with('notification', $notification);
+        return redirect()->route('roles.index')->with('notification', $notification);
     }
 
 
-    public function view($id)
+    public function show($id)
     {
         $role = Role::findOrFail($id);
 
         $breadcrumbs = [
-            ['url' => route('role.index'), 'label' => 'Role'],
-            ['url' => route('role.edit', $id), 'label' => 'View Role'],
+            ['url' => route('roles.index'), 'label' => 'Role'],
+            ['url' => route('roles.edit', $id), 'label' => 'View Role'],
         ];
         $data = [
             'title' => 'View Role',
             'role' => $role,
             'breadcrumbs' => $breadcrumbs,
         ];
-        return view('role.view', $data);
+        return view('roles.show', $data);
 
     }
 
@@ -81,15 +81,15 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
 
         $breadcrumbs = [
-            ['url' => route('role.index'), 'label' => 'Role'],
-            ['url' => route('role.edit', $id), 'label' => 'Edit Role'],
+            ['url' => route('roles.index'), 'label' => 'Role'],
+            ['url' => route('roles.edit', $id), 'label' => 'Edit Role'],
         ];
         $data = [
             'title' => 'Edit Role',
             'role' => $role,
             'breadcrumbs' => $breadcrumbs,
         ];
-        return view('role.edit', $data);
+        return view('roles.edit', $data);
 
     }
 
@@ -105,13 +105,13 @@ class RoleController extends Controller
         $role->enabled = $validatedData['enabled'];
         $role->save();
 
-        return redirect()->route('role.index')->with('success', 'Role updated successfully.');
+        return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         Role::findOrFail($id)->delete();
 
-        return redirect()->route('role.index')->with('success', 'Role deleted successfully.');
+        return redirect()->route('roles.index')->with('success', 'Role deleted successfully.');
     }
 }

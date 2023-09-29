@@ -7,11 +7,7 @@ use App\Models\Permission;
 
 class PermissionController extends Controller
 {
-    /**
-     * Display a listing of the permissions.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $permissions = Permission::all();
@@ -26,11 +22,6 @@ class PermissionController extends Controller
         return view('permissions.index', $data);
     }
 
-    /**
-     * Show the form for creating a new permission.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $breadcrumbs = [
@@ -46,12 +37,6 @@ class PermissionController extends Controller
         return view('permissions.create', $data);
     }
 
-    /**
-     * Store a newly created permission in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -73,12 +58,6 @@ class PermissionController extends Controller
         return redirect()->route('permissions.index')->with('notification', $notification);
     }
 
-    /**
-     * Display the specified permission.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $permission = Permission::findOrFail($id);
@@ -96,12 +75,6 @@ class PermissionController extends Controller
         return view('permissions.show', $data);
     }
 
-    /**
-     * Show the form for editing the specified permission.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $permission = Permission::findOrFail($id);
@@ -117,13 +90,6 @@ class PermissionController extends Controller
         return view('permissions.edit', $data);
     }
 
-    /**
-     * Update the specified permission in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -147,12 +113,6 @@ class PermissionController extends Controller
         return redirect()->route('permissions.index')->with('notification', $notification);
     }
 
-    /**
-     * Remove the specified permission from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         Permission::findOrFail($id)->delete();
