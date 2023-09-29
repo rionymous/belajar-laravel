@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::with('roles')->get();
         $breadcrumbs = [
             ['url' => route('users.index'), 'label' => 'Users'],
         ];
@@ -23,6 +24,7 @@ class UserController extends Controller
 
     public function create()
     {
+        $roles = Role::all();
         $breadcrumbs = [
             ['url' => route('users.index'), 'label' => 'Users'],
             ['url' => route('users.create'), 'label' => 'Add User'],
@@ -30,6 +32,7 @@ class UserController extends Controller
 
         $data = [
             'title' => 'Add User',
+            'roles' => $roles,
             'breadcrumbs' => $breadcrumbs,
         ];
 
@@ -42,13 +45,16 @@ class UserController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|max:15',
+            'role_id' => 'required|exists:roles,id',
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
         ]);
+
+        $user->roles()->attach($validatedData['role_id']);
 
         $notification = [
             'title' => 'Success',
@@ -80,6 +86,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        $roles = Role::all();
         $breadcrumbs = [
             ['url' => route('users.index'), 'label' => 'Users'],
             ['url' => route('users.edit', $id), 'label' => 'Edit User'],
@@ -87,6 +94,7 @@ class UserController extends Controller
         $data = [
             'title' => 'Edit User',
             'user' => $user,
+            'roles' => $roles,
             'breadcrumbs' => $breadcrumbs,
         ];
         return view('users.edit', $data);
@@ -98,19 +106,18 @@ class UserController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'nullable|max:15',
+            'role_id' => 'required|exists:roles,id',
         ]);
 
-        $userData = [
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => $validatedData['password'],
-        ];
-
-        if ($request->has('password')) {
-            $userData['password'] = bcrypt($validatedData['password']);
+        $user = User::findOrFail($id);
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        if ($request->filled('password')) {
+            $user->password = bcrypt($validatedData['password']);
         }
+        $user->save();
 
-        User::where('id', $id)->update($userData);
+        $user->roles()->sync($validatedData['role_id']);
 
         $notification = [
             'title' => 'Success',

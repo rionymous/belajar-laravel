@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Role;
+use App\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -23,6 +24,7 @@ class RoleController extends Controller
 
     public function create()
     {
+        $permissions = Permission::all();
         $breadcrumbs = [
             ['url' => route('roles.index'), 'label' => 'Role'],
             ['url' => route('roles.create'), 'label' => 'Add Role'],
@@ -30,6 +32,7 @@ class RoleController extends Controller
 
         $data = [
             'title' => 'Add Role',
+            'permissions' => $permissions,
             'breadcrumbs' => $breadcrumbs,
         ];
 
@@ -39,14 +42,19 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:roles',
+            'description' => 'nullable|string|max:255',
+            'permissions' => 'required|array',
             'enabled' => 'required|string',
         ]);
 
-        Role::create([
+        $role = Role::create([
             'name' => $validatedData['name'],
+            'description' => $validatedData['description'],
             'enabled' => $validatedData['enabled'],
         ]);
+
+        $role->permissions()->attach($validatedData['permissions']);
 
         $notification = [
             'title' => 'Success',
@@ -79,6 +87,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::findOrFail($id);
+        $permissions = Permission::all();
 
         $breadcrumbs = [
             ['url' => route('roles.index'), 'label' => 'Role'],
@@ -87,6 +96,7 @@ class RoleController extends Controller
         $data = [
             'title' => 'Edit Role',
             'role' => $role,
+            'permissions' => $permissions,
             'breadcrumbs' => $breadcrumbs,
         ];
         return view('roles.edit', $data);
@@ -96,14 +106,19 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|max:255',
+            'name' => 'required|string|max:255|unique:roles,name,' . $id,
+            'description' => 'nullable|string|max:255',
+            'permissions' => 'required|array',
             'enabled' => 'required|boolean',
         ]);
 
         $role = Role::findOrFail($id);
         $role->name = $validatedData['name'];
+        $role->description = $validatedData['description'];
         $role->enabled = $validatedData['enabled'];
         $role->save();
+
+        $role->permissions()->sync($validatedData['permissions']);
 
         return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
     }

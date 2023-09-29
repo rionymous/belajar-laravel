@@ -39,7 +39,12 @@
                               <td>{{ $user->name }}</td>
                               <td>{{ $user->email }}</td>
                               <td>-</td>
-                              <td>-</td>
+                              <td>@foreach ($user->roles as $role)
+                                {{ $role->name }}
+                                @if (!$loop->last)
+                                    ,
+                                @endif
+                            @endforeach</td>
                               <td>
                                 <span class="badge {{ $user->enabled ? 'badge-success' : 'badge-warning' }}">
                                   {{ $user->enabled ? 'ENABLE' : 'DISABLE' }}

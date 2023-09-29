@@ -24,6 +24,8 @@
                     <tr>
                       <th>#</th>
                       <th>Name</th>
+                      <th>Description</th>
+                      <th>Permissions</th>
                       <th>Enabled</th>
                       <th>Actions</th>
                     </tr>
@@ -31,8 +33,17 @@
                   <tbody> @foreach ($roles as $role) <tr>
                       <td>{{ $loop->index + 1 }}</td>
                       <td>{{ $role->name }}</td>
+                      <td>{{ $role->description }}</td>
                       <td>
-                        <span class="badge {{ $role->enabled ? 'badge-success' : 'badge-warning' }}">
+                            @foreach ($role->permissions as $permission)
+                                {{ $permission->name }}
+                                @if (!$loop->last)
+                                    ,
+                                @endif
+                            @endforeach
+                        </td>
+                      <td>
+                        <span class="badge {{ $role->enabled ? 'badge-success' : 'badge-light' }}">
                           {{ $role->enabled ? 'ENABLE' : 'DISABLE' }}
                         </span>
                       </td>

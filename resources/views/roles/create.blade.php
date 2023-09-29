@@ -21,19 +21,21 @@
               <h4>Create New Role</h4>
             </div>
             <div class="card-body">
-              <form action="{{ route('roles.store') }}" method="post"> @csrf <div class="form-group row mb-4">
+              <form action="{{ route('roles.store') }}" method="post">
+                 @csrf 
+                <div class="form-group row mb-4">
                   <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="name">Name</label>
                   <div class="col-sm-12 col-md-7">
                     <input type="text" class="form-control" id="name" name="name">
                   </div>
                 </div>
                 <div class="form-group row mb-4">
-                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="name">User</label>
+                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="name">Permissions</label>
                   <div class="col-sm-12 col-md-7">
-                    <select class="form-control select2" multiple="">
-                      <option>Add</option>
-                      <option>Edit</option>
-                      <option>Delete</option>
+                    <select name="permissions[]" id="permissions" class="form-control select2" multiple required>
+                    @foreach($permissions as $permission)
+                    <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                      @endforeach
                     </select>
                   </div>
                 </div>
@@ -48,6 +50,12 @@
                       <input type="radio" name="enabled" value="0" class="selectgroup-input">
                       <span class="selectgroup-button">Disable</span>
                     </label>
+                  </div>
+                </div>
+                <div class="form-group row mb-4">
+                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="description">Description</label>
+                  <div class="col-sm-12 col-md-7">
+                    <input type="text" class="form-control" id="description" name="description">
                   </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
