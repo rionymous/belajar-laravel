@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="en"> @include('components.header') <body>
-    <div id="app">
-      <div class="main-wrapper main-wrapper-1"> @include('components.navbar') @include('components.sidebar')
-        <!-- Main Content -->
-        <div class="main-content">
+@extends('layouts.app')
+
+@section('content')
+    <div class="main-content">
           <section class="section">
             <div class="section-header">
-              <h1>Role List</h1>
+              <h1>Permission List</h1>
               <div class="section-header-button">
-                <a href="/roles/add" class="btn btn-primary">Add New</a>
+                <a href="{{ route('permissions.create') }}" class="btn btn-primary">Create Permission</a>
               </div>
               <div class="section-header-breadcrumb"> @foreach($breadcrumbs as $breadcrumb) <div class="breadcrumb-item">
                   <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['label'] }}</a>
@@ -19,33 +17,33 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-header">
-                      <h4>All Roles</h4>
+                      <h4>All Permission</h4>
                     </div>
                     <div class="card-body">
-                    @if(count($roles) > 0)
+                    @if(count($permissions) > 0)
                       <div class="table-responsive">
                         <table class="table table-striped" id="table-role">
                           <thead>
                             <tr>
                               <th>#</th>
                               <th>Name</th>
-                              <th>Enabled</th>
+                              <th>Description</th>
                               <th>Actions</th>
                             </tr>
                           </thead>
-                          <tbody> @foreach ($roles as $role) 
-                            <tr data-user-id="{{ $role->id }}">
+                          <tbody> @foreach($permissions as $permission)
+                            <tr>
                             <td>{{ $loop->index + 1 }}</td>
-                            <td>{{ $role->name }}</td>
-                            <td>
-                                <span class="badge {{ $role->enabled ? 'badge-success' : 'badge-warning' }}">
-                                  {{ $role->enabled ? 'ENABLE' : 'DISABLE' }}
-                                </span>
-                              </td>
+                            <td>{{ $permission->name }}</td>
+                            <td>{{ $permission->description }}</td>
                               <td>
-                                <a href="/roles/view/{{ $role->id }}" class="btn btn-info btn-sm">View</a>
-                                <a href="/roles/edit/{{ $role->id }}" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="/roles/delete/{{ $role->id }}" class="btn btn-danger btn-sm">Delete</a>
+                                <a href="{{ route('permissions.show', $permission->id) }}" class="btn btn-info btn-sm">Show</a>
+                                <a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="{{ route('permissions.destroy', $permission->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
                               </td>
                             </tr>
                             @endforeach
@@ -59,7 +57,7 @@
                         </div>
                         <h2>We couldn't find any data</h2>
                         <p class="lead"> Sorry we can't find any data, to get rid of this message, make at least 1 entry. </p>
-                        <a href="roles/add" class="btn btn-primary mt-4">Create new One</a>
+                        <a href="{{ route('permissions.create') }}" class="btn btn-primary mt-4">Create new One</a>
                       </div>
                       @endif
                     </div>
@@ -69,9 +67,4 @@
             </div>
           </section>
         </div> 
-        @include('components.footer')
-      </div>
-    </div> 
-    @include('components.script')
-  </body>
-</html>
+@endsection

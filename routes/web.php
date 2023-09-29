@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 
 Route::get('/', function () {
     $data = [
@@ -53,7 +54,16 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/roles', [RoleController::class, 'index'])->name('role.index');
     Route::get('/roles/add', [RoleController::class, 'add'])->name('role.add');
     Route::post('/roles/create', [RoleController::class, 'create'])->name('role.create');
+    Route::get('/roles/view/{id}', [RoleController::class, 'view'])->name('role.view');
     Route::get('/roles/edit/{id}', [RoleController::class, 'edit'])->name('role.edit');
     Route::post('/roles/update/{id}', [RoleController::class, 'update'])->name('role.update');
     Route::get('/roles/delete/{id}', [RoleController::class, 'delete'])->name('role.delete');
 });
+
+Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
+Route::get('/permissions/create', [PermissionController::class, 'create'])->name('permissions.create');
+Route::post('/permissions', [PermissionController::class, 'store'])->name('permissions.store');
+Route::get('/permissions/show/{id}', [PermissionController::class, 'show'])->name('permissions.show');
+Route::get('/permissions/edit/{id}', [PermissionController::class, 'edit'])->name('permissions.edit');
+Route::put('/permissions/{id}', [PermissionController::class, 'update'])->name('permissions.update');
+Route::delete('/permissions/{id}', [PermissionController::class, 'destroy'])->name('permissions.destroy');

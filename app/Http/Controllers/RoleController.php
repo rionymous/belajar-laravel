@@ -58,6 +58,24 @@ class RoleController extends Controller
     }
 
 
+    public function view($id)
+    {
+        $role = Role::findOrFail($id);
+
+        $breadcrumbs = [
+            ['url' => route('role.index'), 'label' => 'Role'],
+            ['url' => route('role.edit', $id), 'label' => 'View Role'],
+        ];
+        $data = [
+            'title' => 'View Role',
+            'role' => $role,
+            'breadcrumbs' => $breadcrumbs,
+        ];
+        return view('role.view', $data);
+
+    }
+
+
     public function edit($id)
     {
         $role = Role::findOrFail($id);

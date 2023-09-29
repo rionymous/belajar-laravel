@@ -41,11 +41,11 @@
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Enabled</label>
                                             <div class="selectgroup w-100 col-sm-12 col-md-7">
                                                 <label class="selectgroup-item">
-                                                    <input type="radio" name="enabled" value="true" class="selectgroup-input" {{ $role->enabled ? 'checked' : '' }}>
+                                                    <input type="radio" name="enabled" value="1" class="selectgroup-input" {{ $role->enabled ? 'checked' : '' }}>
                                                     <span class="selectgroup-button">Enable</span>
                                                 </label>
                                                 <label class="selectgroup-item">
-                                                    <input type="radio" name="enabled" value="false" class="selectgroup-input" {{ !$role->enabled ? 'checked' : '' }}>
+                                                    <input type="radio" name="enabled" value="0" class="selectgroup-input" {{ !$role->enabled ? 'checked' : '' }}>
                                                     <span class="selectgroup-button">Disable</span>
                                                 </label>
                                             </div>

@@ -33,6 +33,16 @@
 													</div>
 												</div>
 												<div class="form-group row mb-4">
+													<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="name">User</label>
+													<div class="col-sm-12 col-md-7">
+													<select class="form-control select2" multiple="">
+                        <option>Add</option>
+                        <option>Edit</option>
+                        <option>Delete</option>
+                      </select>
+													</div>
+												</div>
+												<div class="form-group row mb-4">
 													<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Enabled</label>
 													<div class="selectgroup w-100 col-sm-12 col-md-7">
 														<label class="selectgroup-item">

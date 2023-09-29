@@ -51,6 +51,19 @@
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
+                                                   for="email">Role</label>
+                                            <div class="col-sm-12 col-md-7">
+                                            <div class="form-group">
+                      <select class="form-control select2">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                      </select>
+                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-4">
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
                                                    for="password">Password</label>
                                             <div class="col-sm-12 col-md-7">
                                                 <input type="password" class="form-control" id="password"
